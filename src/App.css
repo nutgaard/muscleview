@@ -1,0 +1,475 @@
+.app-shell {
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(1rem, 2vw, 2rem);
+}
+
+.hero-panel,
+.atlas-panel,
+.exercise-rail,
+.atlas-header,
+.anatomy-stage,
+.anatomy-panel,
+.atlas-section,
+.rail-stack,
+.exercise-card {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-panel,
+.atlas-panel {
+  padding: clamp(1.25rem, 2vw, 2rem);
+}
+
+.hero-copy,
+.panel-heading,
+.finder-pane,
+.finder-results-header {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.hero-kicker,
+.panel-kicker,
+.card-label,
+.finder-label {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+}
+
+.hero-kicker {
+  color: var(--accent);
+}
+
+.hero-title,
+.panel-title {
+  margin: 0;
+}
+
+.hero-intro,
+.finder-summary,
+.muted-copy {
+  margin: 0;
+  color: var(--muted);
+}
+
+.workspace {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1.55fr) minmax(22rem, 0.85fr);
+  align-items: start;
+}
+
+.atlas-panel {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.atlas-header {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.anatomy-stage,
+.rail-stack {
+  margin: 0;
+  padding: 1.1rem;
+  border: 1px solid rgba(95, 77, 58, 0.16);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.72), transparent 48%),
+    rgba(255, 250, 243, 0.78);
+}
+
+.anatomy-stage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  position: relative;
+  padding-top: 1.1rem;
+  padding-bottom: 4.5rem;
+}
+
+.anatomy-panel {
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.anatomy-panel figcaption {
+  margin: 0;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+}
+
+.anatomy-map {
+  display: grid;
+  place-items: center;
+  min-height: 34rem;
+}
+
+.anatomy-map svg {
+  width: min(100%, 19rem);
+  height: auto;
+}
+
+.anatomy-svg rect:first-of-type {
+  fill: transparent;
+}
+
+.anatomy-svg g[class] path {
+  fill: #d7cec1;
+  transition: fill 180ms ease;
+}
+
+.anatomy-svg .silhouette {
+  fill: none;
+  stroke: #8f8171;
+}
+
+.anatomy-svg g.is-low path {
+  fill: #cf9b58;
+}
+
+.anatomy-svg g.is-high path {
+  fill: #b54830;
+}
+
+.anatomy-fallback {
+  display: grid;
+  place-items: center;
+  min-height: 26rem;
+  width: 100%;
+  border: 1px dashed rgba(95, 77, 58, 0.24);
+  border-radius: 1rem;
+  color: var(--muted);
+}
+
+.legend-row,
+.legend-row span,
+.pill-row,
+.muscle-filter-grid,
+.exercise-card-muscles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.legend-row {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.legend-row span {
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.anatomy-legend {
+  position: absolute;
+  left: 1.1rem;
+  bottom: 1.1rem;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem 0.75rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 248, 238, 0.88);
+}
+
+.legend-swatch {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 999px;
+}
+
+.legend-swatch.is-primary {
+  background: rgba(187, 74, 47, 0.88);
+}
+
+.legend-swatch.is-secondary {
+  background: rgba(209, 163, 107, 0.95);
+}
+
+.atlas-notes {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(95, 77, 58, 0.12);
+}
+
+.atlas-section {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.atlas-section + .atlas-section {
+  padding-left: 1rem;
+  padding-right: 0;
+  border-left: 1px solid rgba(95, 77, 58, 0.12);
+}
+
+.atlas-section-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.stress-columns {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stress-column,
+.detail-actions {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.stress-group-label {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+}
+
+.profile-list {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+}
+
+.profile-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(95, 77, 58, 0.12);
+}
+
+.profile-list dt {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+}
+
+.profile-list dd {
+  margin: 0;
+  font-weight: 700;
+  color: var(--ink);
+  text-transform: capitalize;
+  text-align: right;
+}
+
+.exercise-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  position: sticky;
+  top: 1rem;
+  height: calc(100svh - 2rem);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.rail-stack {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.rail-stack-finder {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  gap: 1rem;
+  min-height: 0;
+}
+
+.finder-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  padding: 0.3rem;
+  border: 1px solid rgba(95, 77, 58, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 250, 243, 0.8);
+}
+
+.finder-tab {
+  min-height: 2.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.finder-tab:hover {
+  transform: translateY(-1px);
+}
+
+.finder-tab.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.exercise-list {
+  display: grid;
+  align-content: start;
+  grid-auto-rows: max-content;
+  gap: 0.8rem;
+  height: 100%;
+  overflow: auto;
+  min-height: 0;
+  padding-right: 0.2rem;
+}
+
+.exercise-card {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  border: 1px solid rgba(95, 77, 58, 0.16);
+  border-radius: 1.1rem;
+  background: rgba(255, 251, 244, 0.78);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.exercise-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(142, 43, 28, 0.36);
+}
+
+.exercise-card.is-active {
+  border-color: rgba(142, 43, 28, 0.5);
+  background: rgba(142, 43, 28, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(142, 43, 28, 0.1);
+}
+
+.exercise-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.exercise-card-top strong {
+  font-size: 1rem;
+}
+
+.exercise-card-top span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+}
+
+.exercise-card p {
+  margin: 0;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  min-height: 34rem;
+}
+
+.empty-heading {
+  text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .workspace,
+  .atlas-notes,
+  .anatomy-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .atlas-header {
+    align-items: start;
+  }
+
+  .anatomy-stage {
+    padding-bottom: 1.1rem;
+  }
+
+  .anatomy-legend {
+    position: static;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    justify-content: flex-start;
+  }
+
+  .atlas-section {
+    padding-right: 0;
+  }
+
+  .atlas-section + .atlas-section {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid rgba(95, 77, 58, 0.12);
+    padding-top: 1rem;
+  }
+
+  .stress-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-rail {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .exercise-list {
+    height: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .app-shell {
+    padding: 0.75rem;
+  }
+
+  .anatomy-map {
+    min-height: 24rem;
+  }
+}
