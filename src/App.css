@@ -309,6 +309,10 @@
   min-height: 0;
 }
 
+.rail-stack-finder-unified {
+  gap: 0.95rem;
+}
+
 .finder-tabs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -341,6 +345,242 @@
 .finder-tab.is-active {
   background: var(--ink);
   color: var(--paper);
+}
+
+.finder-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.finder-filter-control {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+}
+
+.finder-filter-trigger {
+  position: relative;
+  display: grid;
+  gap: 0.15rem;
+  width: 100%;
+  min-height: 3.6rem;
+  padding: 0.82rem 2.8rem 0.82rem 0.95rem;
+  border: 1px solid rgba(95, 77, 58, 0.16);
+  border-radius: 1rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(251, 245, 235, 0.94)),
+    rgba(255, 252, 246, 0.92);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.finder-filter-trigger::before,
+.finder-filter-trigger::after {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 1.6px solid rgba(36, 23, 14, 0.62);
+  border-bottom: 1.6px solid rgba(36, 23, 14, 0.62);
+  transition: transform 160ms ease;
+}
+
+.finder-filter-trigger::before {
+  top: calc(50% - 0.4rem);
+  transform: rotate(45deg);
+}
+
+.finder-filter-trigger::after {
+  top: calc(50% - 0.02rem);
+  transform: rotate(45deg);
+  opacity: 0.4;
+}
+
+.finder-filter-trigger:hover {
+  transform: translateY(-1px);
+  border-color: rgba(142, 43, 28, 0.28);
+}
+
+.finder-filter-trigger.is-open {
+  border-color: rgba(142, 43, 28, 0.42);
+  box-shadow: 0 14px 28px rgba(68, 35, 18, 0.08);
+}
+
+.finder-filter-trigger.is-open::before {
+  transform: rotate(225deg);
+}
+
+.finder-filter-trigger.is-open::after {
+  transform: rotate(225deg);
+}
+
+.finder-filter-trigger-copy {
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.finder-filter-trigger-meta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+}
+
+.finder-selected-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.filter-token {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.62rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: rgba(66, 38, 17, 0.06);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.78rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.filter-token:hover {
+  transform: translateY(-1px);
+}
+
+.filter-token.is-muscle {
+  background: rgba(181, 72, 48, 0.1);
+  border-color: rgba(181, 72, 48, 0.12);
+}
+
+.filter-token.is-equipment {
+  background: rgba(43, 78, 69, 0.1);
+  border-color: rgba(43, 78, 69, 0.12);
+}
+
+.finder-filter-menu {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  inset-inline: 0;
+  z-index: 20;
+  border: 1px solid rgba(95, 77, 58, 0.16);
+  border-radius: 1.05rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 239, 224, 0.96)), var(--panel);
+  box-shadow: 0 22px 48px rgba(68, 35, 18, 0.16);
+  overflow: hidden;
+  animation: finder-menu-in 180ms ease;
+}
+
+.finder-filter-menu-scroll {
+  display: grid;
+  gap: 0.3rem;
+  max-height: 14rem;
+  overflow: auto;
+  padding: 0.45rem;
+}
+
+.finder-filter-option {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.72rem 0.76rem;
+  border: 0;
+  border-radius: 0.85rem;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.finder-filter-option:hover {
+  background: rgba(66, 38, 17, 0.05);
+}
+
+.finder-filter-option.is-selected {
+  background: rgba(142, 43, 28, 0.09);
+}
+
+.finder-filter-option-check {
+  font-size: 0.8rem;
+  color: var(--muted-strong);
+}
+
+.finder-filter-option-label {
+  min-width: 0;
+  text-transform: capitalize;
+}
+
+.finder-filter-option-count {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--muted-strong);
+}
+
+.finder-filter-menu-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.7rem 0.8rem 0.8rem;
+  border-top: 1px solid rgba(95, 77, 58, 0.12);
+}
+
+.finder-clear-button {
+  min-height: 2.35rem;
+  padding: 0 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(66, 38, 17, 0.08);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.finder-clear-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: rgba(142, 43, 28, 0.1);
+}
+
+.finder-clear-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.finder-filter-trigger:focus-visible,
+.filter-token:focus-visible,
+.finder-filter-option:focus-visible,
+.finder-clear-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.finder-results-header-unified {
+  align-items: start;
 }
 
 .exercise-list {
@@ -391,7 +631,15 @@
 }
 
 .exercise-card-top strong {
+  flex: 1 1 auto;
   font-size: 1rem;
+}
+
+.exercise-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
 }
 
 .exercise-card-top span {
@@ -406,6 +654,15 @@
   margin: 0;
   color: var(--muted);
   text-transform: capitalize;
+}
+
+.exercise-pill-equipment {
+  background: rgba(43, 78, 69, 0.12);
+  color: #27463f;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .empty-state {
@@ -474,5 +731,29 @@
 
   .anatomy-map {
     min-height: 24rem;
+  }
+
+  .finder-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-card-top {
+    flex-direction: column;
+  }
+
+  .exercise-card-badges {
+    justify-content: flex-start;
+  }
+}
+
+@keyframes finder-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

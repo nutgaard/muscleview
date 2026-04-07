@@ -15,7 +15,8 @@ export function HeroPanel() {
         <h1 className="hero-title">See what each lift actually trains.</h1>
         <p className="hero-intro">
           A visual index for {exercises.length} exercises across {muscleCount} tracked muscles.
-          Search by exercise name, narrow by muscle, and read the result directly on the body map.
+          Search by exercise name, narrow by muscle or equipment, and read the result directly on
+          the body map.
         </p>
       </div>
     </SurfacePanel>
