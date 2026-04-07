@@ -1,11 +1,17 @@
 import type { ExerciseData } from "./exercises.js";
-import type { Muscle } from "./types.js";
+import type { Muscle, WeightType } from "./types.js";
 
 export type MuscleFilter = "ALL" | Muscle;
 export type FinderMode = "exercise" | "muscle";
 
 export interface MuscleOption {
   value: Muscle;
+  label: string;
+  count: number;
+}
+
+export interface WeightTypeOption {
+  value: WeightType;
   label: string;
   count: number;
 }
@@ -44,4 +50,36 @@ export function buildMuscleOptions(sourceExercises: readonly ExerciseData[]): Mu
       label: formatLabel(muscle),
       count,
     }));
+}
+
+export function buildWeightTypeOptions(
+  sourceExercises: readonly ExerciseData[],
+): WeightTypeOption[] {
+  const counts = sourceExercises.reduce<Partial<Record<WeightType, number>>>(
+    (accumulator, exercise) => {
+      accumulator[exercise.weightType] = (accumulator[exercise.weightType] ?? 0) + 1;
+
+      return accumulator;
+    },
+    {},
+  );
+
+  return (Object.entries(counts) as [WeightType, number][])
+    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+    .map(([weightType, count]) => ({
+      value: weightType,
+      label: formatLabel(weightType.toLowerCase()),
+      count,
+    }));
+}
+
+export function matchesAnySelection<T extends string>(
+  selectedValues: readonly T[],
+  availableValues: readonly T[],
+): boolean {
+  if (selectedValues.length === 0) {
+    return true;
+  }
+
+  return availableValues.some((value) => selectedValues.includes(value));
 }

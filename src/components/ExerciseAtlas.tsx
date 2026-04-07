@@ -50,10 +50,8 @@ function AnatomyPanel({ label, SvgComponent, currentExercise }: AnatomyPanelProp
 }
 
 export function ExerciseAtlas({ exercise }: ExerciseAtlasProps) {
-  const primaryMuscles =
-      exercise?.muscleGroups.filter(({ stress }) => stress === "HIGH") ?? [];
-  const secondaryMuscles =
-      exercise?.muscleGroups.filter(({ stress }) => stress === "LOW") ?? [];
+  const primaryMuscles = exercise?.muscleGroups.filter(({ stress }) => stress === "HIGH") ?? [];
+  const secondaryMuscles = exercise?.muscleGroups.filter(({ stress }) => stress === "LOW") ?? [];
 
   if (exercise == null) {
     return (
@@ -62,7 +60,7 @@ export function ExerciseAtlas({ exercise }: ExerciseAtlasProps) {
           <div className="panel-heading empty-heading">
             <p className="panel-kicker">No match</p>
             <h2 className="panel-title">Nothing fits the current filters.</h2>
-            <p className="muted-copy">Try a broader exercise search or clear the muscle filter.</p>
+            <p className="muted-copy">Try a broader search or clear one of the active filters.</p>
           </div>
         </div>
       </SurfacePanel>
@@ -90,16 +88,8 @@ export function ExerciseAtlas({ exercise }: ExerciseAtlasProps) {
           </span>
         </div>
 
-        <AnatomyPanel
-          label="Front"
-          SvgComponent={FrontMuscleView}
-          currentExercise={exercise}
-        />
-        <AnatomyPanel
-          label="Back"
-          SvgComponent={BackMuscleView}
-          currentExercise={exercise}
-        />
+        <AnatomyPanel label="Front" SvgComponent={FrontMuscleView} currentExercise={exercise} />
+        <AnatomyPanel label="Back" SvgComponent={BackMuscleView} currentExercise={exercise} />
       </section>
 
       <section className="atlas-notes">
