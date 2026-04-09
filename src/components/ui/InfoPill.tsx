@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ElementType } from "react";
+import { cls } from "../../lib/cls.js";
 import styles from "./InfoPill.module.css";
 
 type InfoPillTone = "default" | "muscle" | "equipment";
@@ -23,13 +24,12 @@ export function InfoPill<T extends ElementType = "span">({
   const Tag = (as ?? "span") as ElementType;
   const toneClassName =
     tone === "equipment" ? styles.equipment : tone === "muscle" ? styles.muscle : styles.default;
-  const interactiveClassName = interactive ? styles.interactive : "";
-  const pillClassName = className
-    ? `${styles.pill} ${toneClassName} ${interactiveClassName} ${className}`.trim()
-    : `${styles.pill} ${toneClassName} ${interactiveClassName}`.trim();
 
   return (
-    <Tag className={pillClassName} {...props}>
+    <Tag
+      className={cls(styles.pill, toneClassName, { [styles.interactive]: interactive }, className)}
+      {...props}
+    >
       {children}
     </Tag>
   );

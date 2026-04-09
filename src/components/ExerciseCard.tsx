@@ -1,4 +1,5 @@
 import type { ExerciseData } from "../exercises.js";
+import { cls } from "../lib/cls.js";
 import { formatLabel } from "../muscle-view.js";
 import { InfoPill } from "./ui/InfoPill.js";
 import styles from "./ExerciseCard.module.css";
@@ -10,10 +11,12 @@ type ExerciseCardProps = {
 };
 
 export function ExerciseCard({ exercise, active, onSelect }: ExerciseCardProps) {
-  const cardClassName = active ? `${styles.card} ${styles.active}` : styles.card;
-
   return (
-    <button type="button" className={cardClassName} onClick={onSelect}>
+    <button
+      type="button"
+      className={cls(styles.card, { [styles.active]: active })}
+      onClick={onSelect}
+    >
       <strong className={styles.title}>{exercise.name}</strong>
       <div className={styles.muscles}>
         {exercise.muscleGroups

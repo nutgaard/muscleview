@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, PropsWithChildren } from "react";
+import { cls } from "../../lib/cls.js";
 import styles from "./ActionLink.module.css";
 
 export function ActionLink({
@@ -8,11 +9,9 @@ export function ActionLink({
   target,
   ...props
 }: PropsWithChildren<AnchorHTMLAttributes<HTMLAnchorElement>>) {
-  const linkClassName = className ? `${styles.link} ${className}` : styles.link;
-
   return (
     <a
-      className={linkClassName}
+      className={cls(styles.link, className)}
       target={target ?? "_blank"}
       rel={rel ?? "noreferrer noopener"}
       {...props}

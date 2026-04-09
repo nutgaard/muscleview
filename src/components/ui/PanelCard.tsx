@@ -1,4 +1,5 @@
 import type { HTMLAttributes, PropsWithChildren } from "react";
+import { cls } from "../../lib/cls.js";
 import styles from "./PanelCard.module.css";
 
 type PanelCardProps = PropsWithChildren<
@@ -15,13 +16,11 @@ export function PanelCard({
   allowOverflow = false,
   ...props
 }: PanelCardProps) {
-  const baseClassName = allowOverflow
-    ? `${styles.surface} ${styles.allowOverflow}`
-    : styles.surface;
-  const panelClassName = className ? `${baseClassName} ${className}` : baseClassName;
-
   return (
-    <Tag className={panelClassName} {...props}>
+    <Tag
+      className={cls(styles.surface, { [styles.allowOverflow]: allowOverflow }, className)}
+      {...props}
+    >
       {children}
     </Tag>
   );

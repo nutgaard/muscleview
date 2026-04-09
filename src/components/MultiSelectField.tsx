@@ -1,4 +1,5 @@
 import { useEffect, useEffectEvent, useId, useRef, useState } from "react";
+import { cls } from "../lib/cls.js";
 import { InfoPill } from "./ui/InfoPill.js";
 import styles from "./MultiSelectField.module.css";
 
@@ -110,9 +111,6 @@ export function MultiSelectField<T extends string>({
           <div className={styles.menuScroll}>
             {options.map((option) => {
               const selected = selectedValues.includes(option.value);
-              const optionClassName = selected
-                ? `${styles.option} ${styles.optionSelected}`
-                : styles.option;
 
               return (
                 <button
@@ -120,7 +118,7 @@ export function MultiSelectField<T extends string>({
                   type="button"
                   role="option"
                   aria-selected={selected}
-                  className={optionClassName}
+                  className={cls(styles.option, { [styles.optionSelected]: selected })}
                   onClick={() => {
                     onToggleValue(option.value);
                   }}

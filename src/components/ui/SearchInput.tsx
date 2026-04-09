@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes } from "react";
+import { cls } from "../../lib/cls.js";
 import styles from "./SearchInput.module.css";
 
 type SearchInputProps = InputHTMLAttributes<HTMLInputElement> & {
@@ -7,7 +8,7 @@ type SearchInputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export function SearchInput({ label, className, ...props }: SearchInputProps) {
   return (
-    <label className={className ? `${styles.field} ${className}` : styles.field}>
+    <label className={cls(styles.field, className)}>
       <span className={styles.label}>{label}</span>
       <input className={styles.input} type="search" {...props} />
     </label>
