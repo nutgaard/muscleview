@@ -61,7 +61,9 @@ export function ExerciseAtlas({ exercise }: ExerciseAtlasProps) {
               <p className={styles.stressLabel}>Primary</p>
               <div className={styles.pillRow}>
                 {primaryMuscles.map(({ muscle }) => (
-                  <InfoPill key={muscle}>{formatLabel(muscle)}</InfoPill>
+                  <InfoPill key={muscle} tone="muscle">
+                    {formatLabel(muscle)}
+                  </InfoPill>
                 ))}
               </div>
             </div>
@@ -71,7 +73,9 @@ export function ExerciseAtlas({ exercise }: ExerciseAtlasProps) {
               <div className={styles.pillRow}>
                 {secondaryMuscles.length ? (
                   secondaryMuscles.map(({ muscle }) => (
-                    <InfoPill key={muscle}>{formatLabel(muscle)}</InfoPill>
+                    <InfoPill key={muscle} tone="muscle">
+                      {formatLabel(muscle)}
+                    </InfoPill>
                   ))
                 ) : (
                   <p className={styles.mutedCopy}>No secondary stress is marked for this lift.</p>

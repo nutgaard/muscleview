@@ -14,18 +14,14 @@ export function ExerciseCard({ exercise, active, onSelect }: ExerciseCardProps) 
 
   return (
     <button type="button" className={cardClassName} onClick={onSelect}>
-      <div className={styles.top}>
-        <strong className={styles.title}>{exercise.name}</strong>
-        <div className={styles.meta}>
-          <InfoPill tone="equipment">{formatLabel(exercise.weightType.toLowerCase())}</InfoPill>
-        </div>
-      </div>
-      <p className={styles.movement}>{formatLabel(exercise.movementType.toLowerCase())}</p>
+      <strong className={styles.title}>{exercise.name}</strong>
       <div className={styles.muscles}>
         {exercise.muscleGroups
           .filter(({ stress }) => stress === "HIGH")
           .map(({ muscle }) => (
-            <InfoPill key={`${exercise.id}-${muscle}`}>{formatLabel(muscle)}</InfoPill>
+            <InfoPill key={`${exercise.id}-${muscle}`} tone="muscle">
+              {formatLabel(muscle)}
+            </InfoPill>
           ))}
       </div>
     </button>

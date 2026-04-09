@@ -1,21 +1,36 @@
-import type { HTMLAttributes, PropsWithChildren } from "react";
+import type { ComponentPropsWithoutRef, ElementType } from "react";
 import styles from "./InfoPill.module.css";
 
-type InfoPillProps = PropsWithChildren<
-  HTMLAttributes<HTMLSpanElement> & {
-    tone?: "default" | "equipment";
-  }
->;
+type InfoPillTone = "default" | "muscle" | "equipment";
 
-export function InfoPill({ tone = "default", className, children, ...props }: InfoPillProps) {
-  const toneClassName = tone === "equipment" ? styles.equipment : styles.default;
+type InfoPillOwnProps<T extends ElementType> = {
+  as?: T;
+  interactive?: boolean;
+  tone?: InfoPillTone;
+};
+
+type InfoPillProps<T extends ElementType = "span"> = InfoPillOwnProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof InfoPillOwnProps<T>>;
+
+export function InfoPill<T extends ElementType = "span">({
+  as,
+  interactive = false,
+  tone = "default",
+  className,
+  children,
+  ...props
+}: InfoPillProps<T>) {
+  const Tag = (as ?? "span") as ElementType;
+  const toneClassName =
+    tone === "equipment" ? styles.equipment : tone === "muscle" ? styles.muscle : styles.default;
+  const interactiveClassName = interactive ? styles.interactive : "";
   const pillClassName = className
-    ? `${styles.pill} ${toneClassName} ${className}`
-    : `${styles.pill} ${toneClassName}`;
+    ? `${styles.pill} ${toneClassName} ${interactiveClassName} ${className}`.trim()
+    : `${styles.pill} ${toneClassName} ${interactiveClassName}`.trim();
 
   return (
-    <span className={pillClassName} {...props}>
+    <Tag className={pillClassName} {...props}>
       {children}
-    </span>
+    </Tag>
   );
 }

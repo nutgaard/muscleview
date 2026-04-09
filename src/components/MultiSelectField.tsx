@@ -1,4 +1,5 @@
 import { useEffect, useEffectEvent, useId, useRef, useState } from "react";
+import { InfoPill } from "./ui/InfoPill.js";
 import styles from "./MultiSelectField.module.css";
 
 export type FilterOption<T extends string> = {
@@ -79,23 +80,20 @@ export function MultiSelectField<T extends string>({
       {selectedOptions.length > 0 ? (
         <div className={styles.selectedPills} aria-label={`${label} selected values`}>
           {selectedOptions.map((option) => {
-            const tokenClassName =
-              accent === "muscle"
-                ? `${styles.token} ${styles.muscleToken}`
-                : `${styles.token} ${styles.equipmentToken}`;
-
             return (
-              <button
+              <InfoPill
                 key={option.value}
+                as="button"
                 type="button"
-                className={tokenClassName}
+                tone={accent}
+                interactive
                 onClick={() => {
                   onToggleValue(option.value);
                 }}
               >
                 <span>{option.label}</span>
                 <span aria-hidden="true">×</span>
-              </button>
+              </InfoPill>
             );
           })}
         </div>

@@ -1,22 +1,59 @@
 .pill {
+  --pill-radius: 0.8rem;
   display: inline-flex;
   align-items: center;
-  padding: 0.52rem 0.74rem;
-  border-radius: 999px;
-  font-size: 0.84rem;
+  gap: 0.28rem;
+  padding: 0.32rem 0.56rem;
+  border: 1px solid transparent;
+  border-radius: var(--pill-radius);
+  corner-shape: superellipse(2.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
 }
 
 .default {
-  background: rgba(66, 38, 17, 0.06);
+  border-color: rgba(95, 77, 58, 0.18);
+  background: rgba(255, 249, 240, 0.82);
   color: var(--ink);
   text-transform: capitalize;
 }
 
+.muscle {
+  border-color: rgba(181, 72, 48, 0.18);
+  background: rgba(181, 72, 48, 0.11);
+  color: #5f2316;
+  text-transform: capitalize;
+}
+
 .equipment {
+  border-color: rgba(43, 78, 69, 0.18);
   background: rgba(43, 78, 69, 0.12);
-  color: #27463f;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: #214038;
+  text-transform: capitalize;
+}
+
+.interactive {
+  appearance: none;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.interactive:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 4px 10px rgba(68, 35, 18, 0.08);
+}
+
+.interactive:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }

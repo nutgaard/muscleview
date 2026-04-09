@@ -99,38 +99,6 @@
   gap: 0.45rem;
 }
 
-.token {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.38rem 0.62rem;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  color: var(--ink);
-  font: inherit;
-  font-size: 0.78rem;
-  text-transform: capitalize;
-  cursor: pointer;
-  transition:
-    transform 160ms ease,
-    border-color 160ms ease,
-    background-color 160ms ease;
-}
-
-.token:hover {
-  transform: translateY(-1px);
-}
-
-.muscleToken {
-  background: rgba(181, 72, 48, 0.1);
-  border-color: rgba(181, 72, 48, 0.12);
-}
-
-.equipmentToken {
-  background: rgba(43, 78, 69, 0.1);
-  border-color: rgba(43, 78, 69, 0.12);
-}
-
 .menu {
   position: absolute;
   position-anchor: --field-trigger;
@@ -229,7 +197,6 @@
 }
 
 .trigger:focus-visible,
-.token:focus-visible,
 .option:focus-visible,
 .clearButton:focus-visible {
   outline: 2px solid var(--accent);
