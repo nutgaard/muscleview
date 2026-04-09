@@ -1,133 +1,127 @@
-import { Activity, type Dispatch, type SetStateAction, useEffect, useMemo, useState } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useMemo, useState } from "react";
 import type { ExerciseData, ExerciseId } from "../exercises.js";
 import { exercises } from "../exercises.js";
-import { InfoPill, SearchField, SelectField, SurfacePanel } from "../design-system.js";
 import {
   buildMuscleOptions,
-  type FinderMode,
-  formatLabel,
+  buildWeightTypeOptions,
+  matchesAnySelection,
   matchesExerciseQuery,
-  type MuscleFilter,
 } from "../muscle-view.js";
-import { FinderSelector } from "./FinderSelector.tsx";
+import type { Muscle, WeightType } from "../types.js";
+import { ExerciseCard } from "./ExerciseCard.js";
+import { MultiSelectField } from "./MultiSelectField.js";
+import { PanelCard } from "./ui/PanelCard.js";
+import { SearchInput } from "./ui/SearchInput.js";
+import styles from "./FinderPanel.module.css";
 
 type FinderPanelProps = {
   currentExerciseId: ExerciseId;
   setCurrentExerciseId: Dispatch<SetStateAction<ExerciseId>>;
-  filteredExercises: ExerciseData[];
-  setFilteredExercises: Dispatch<SetStateAction<ExerciseData[]>>;
-};
-type SearchFilterProps = {
-  filteredExercises: ExerciseData[];
   setFilteredExercises: Dispatch<SetStateAction<ExerciseData[]>>;
 };
 
-function Search({ setFilteredExercises }: SearchFilterProps) {
+function toggleSelection<T extends string>(currentValues: readonly T[], value: T): T[] {
+  return currentValues.includes(value)
+    ? currentValues.filter((currentValue) => currentValue !== value)
+    : [...currentValues, value];
+}
+
+export function FinderPanel({
+  currentExerciseId,
+  setCurrentExerciseId,
+  setFilteredExercises,
+}: FinderPanelProps) {
   const [exerciseQuery, setExerciseQuery] = useState("");
-  useEffect(() => {
-    const normalizedExerciseQuery = exerciseQuery.trim().toLowerCase();
-    const exerciseSearchResults = exercises.filter((exercise) =>
-      matchesExerciseQuery(exercise, normalizedExerciseQuery),
-    );
-    setFilteredExercises(exerciseSearchResults);
-  }, [exerciseQuery, setFilteredExercises]);
-
-  return (
-    <div className="finder-pane" role="tabpanel">
-      <SearchField
-        label="Search"
-        value={exerciseQuery}
-        onChange={(event) => {
-          setExerciseQuery(event.target.value);
-        }}
-        placeholder="Bench press, row, squat..."
-      />
-    </div>
-  );
-}
-
-function MuscleFilter({ setFilteredExercises }: SearchFilterProps) {
+  const [selectedMuscles, setSelectedMuscles] = useState<Muscle[]>([]);
+  const [selectedWeightTypes, setSelectedWeightTypes] = useState<WeightType[]>([]);
   const muscleOptions = useMemo(() => buildMuscleOptions(exercises), []);
-  const [selectedMuscleFilter, setSelectedMuscleFilter] = useState<MuscleFilter>("ALL");
+  const weightTypeOptions = useMemo(() => buildWeightTypeOptions(exercises), []);
+  const visibleExercises = useMemo(() => {
+    const normalizedQuery = exerciseQuery.trim().toLowerCase();
+
+    return exercises.filter((exercise) => {
+      const matchesQuery = matchesExerciseQuery(exercise, normalizedQuery);
+      const matchesMuscles = matchesAnySelection(
+        selectedMuscles,
+        exercise.muscleGroups.map(({ muscle }) => muscle),
+      );
+      const matchesWeightTypes = matchesAnySelection(selectedWeightTypes, [exercise.weightType]);
+
+      return matchesQuery && matchesMuscles && matchesWeightTypes;
+    });
+  }, [exerciseQuery, selectedMuscles, selectedWeightTypes]);
+  const activeFilterCount =
+    Number(exerciseQuery.trim().length > 0) +
+    Number(selectedMuscles.length > 0) +
+    Number(selectedWeightTypes.length > 0);
+  const resultSummary =
+    activeFilterCount === 0
+      ? `${visibleExercises.length} exercises`
+      : `${visibleExercises.length} exercises, ${activeFilterCount} active filter group${
+          activeFilterCount === 1 ? "" : "s"
+        }`;
 
   useEffect(() => {
-    const muscleFilteredExercises = exercises.filter(
-      (exercise) =>
-        selectedMuscleFilter === "ALL" ||
-        exercise.muscleGroups.some(({ muscle }) => muscle === selectedMuscleFilter),
-    );
-    setFilteredExercises(muscleFilteredExercises);
-  }, [setFilteredExercises, selectedMuscleFilter]);
+    setFilteredExercises(visibleExercises);
+  }, [setFilteredExercises, visibleExercises]);
 
   return (
-    <div className="finder-pane" role="tabpanel">
-      <SelectField
-        label="Choose muscle group"
-        value={selectedMuscleFilter}
-        onChange={(event) => {
-          setSelectedMuscleFilter(event.target.value as MuscleFilter);
-        }}
-      >
-        <option value="ALL">All muscles ({exercises.length})</option>
-        {muscleOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label} ({option.count})
-          </option>
-        ))}
-      </SelectField>
-    </div>
-  );
-}
+    <div className={styles.mount}>
+      <PanelCard className={styles.panel} allowOverflow aria-label="Exercise filters and results">
+        <SearchInput
+          label="Search"
+          value={exerciseQuery}
+          onChange={(event) => {
+            setExerciseQuery(event.target.value);
+          }}
+          placeholder="Bench press, row, squat..."
+        />
 
-export function FinderPanel(props: FinderPanelProps) {
-  const [finderMode, setFinderMode] = useState<FinderMode>("exercise");
-
-  return (
-    <SurfacePanel className="rail-stack rail-stack-finder exercise-rail">
-      <div className="panel-heading">
-        <p className="panel-kicker">Exercise index</p>
-      </div>
-
-      <FinderSelector finderMode={finderMode} setFinderMode={setFinderMode} />
-
-      <Activity mode={finderMode === "exercise" ? "visible" : "hidden"}>
-        <Search {...props} />
-      </Activity>
-      <Activity mode={finderMode === "muscle" ? "visible" : "hidden"}>
-        <MuscleFilter {...props} />
-      </Activity>
-
-      <div className="finder-results-header">
-        <p className="finder-label">Matching exercises({props.filteredExercises.length})</p>
-      </div>
-
-      <div className="exercise-list">
-        {props.filteredExercises.map((exercise) => (
-          <button
-            key={exercise.id}
-            type="button"
-            className={
-              exercise.id === props.currentExerciseId ? "exercise-card is-active" : "exercise-card"
-            }
-            onClick={() => {
-              props.setCurrentExerciseId(exercise.id);
+        <div className={styles.filters} aria-label="Exercise filters">
+          <MultiSelectField
+            label="Muscles"
+            accent="muscle"
+            options={muscleOptions}
+            selectedValues={selectedMuscles}
+            onToggleValue={(value) => {
+              setSelectedMuscles((currentValues) => toggleSelection(currentValues, value));
             }}
-          >
-            <div className="exercise-card-top">
-              <strong>{exercise.name}</strong>
-              <span>{formatLabel(exercise.muscleType.toLowerCase())}</span>
-            </div>
-            <p>{formatLabel(exercise.movementType.toLowerCase())}</p>
-            <div className="exercise-card-muscles">
-              {exercise.muscleGroups
-                .filter(({ stress }) => stress === "HIGH")
-                .map(({ muscle }) => (
-                  <InfoPill key={`${exercise.id}-${muscle}`}>{formatLabel(muscle)}</InfoPill>
-                ))}
-            </div>
-          </button>
-        ))}
-      </div>
-    </SurfacePanel>
+            onClear={() => {
+              setSelectedMuscles([]);
+            }}
+          />
+
+          <MultiSelectField
+            label="Equipment"
+            accent="equipment"
+            options={weightTypeOptions}
+            selectedValues={selectedWeightTypes}
+            onToggleValue={(value) => {
+              setSelectedWeightTypes((currentValues) => toggleSelection(currentValues, value));
+            }}
+            onClear={() => {
+              setSelectedWeightTypes([]);
+            }}
+          />
+        </div>
+
+        <div className={styles.resultsHeader}>
+          <p className={styles.status}>{resultSummary}</p>
+        </div>
+
+        <div className={styles.list}>
+          {visibleExercises.map((exercise) => (
+            <ExerciseCard
+              key={exercise.id}
+              exercise={exercise}
+              active={exercise.id === currentExerciseId}
+              onSelect={() => {
+                setCurrentExerciseId(exercise.id);
+              }}
+            />
+          ))}
+        </div>
+      </PanelCard>
+    </div>
   );
 }

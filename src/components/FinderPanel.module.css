@@ -1,0 +1,75 @@
+.mount {
+  --frame-pad: clamp(1rem, 2vw, 2rem);
+  --workspace-width: calc(min(1480px, 100vw) - (var(--frame-pad) * 2));
+  --finder-width: max(22rem, calc((var(--workspace-width) - 1.5rem) * 0.3541666667));
+  min-height: calc(100svh - (var(--frame-pad) * 2));
+}
+
+.panel {
+  position: fixed;
+  top: var(--frame-pad);
+  right: calc(max(0px, (100vw - 1480px) / 2) + var(--frame-pad));
+  width: var(--finder-width);
+  display: grid;
+  gap: 0.95rem;
+  align-content: start;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  min-height: 0;
+  height: calc(100svh - (var(--frame-pad) * 2));
+  max-height: calc(100svh - (var(--frame-pad) * 2));
+  padding: 1.25rem;
+}
+
+.filters {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.resultsHeader {
+  min-height: 1.5rem;
+}
+
+.status {
+  margin: 0;
+  color: var(--muted);
+}
+
+.list {
+  display: grid;
+  align-content: start;
+  grid-auto-rows: max-content;
+  gap: 0.8rem;
+  min-height: 0;
+  height: 100%;
+  overflow: auto;
+  padding-right: 0.2rem;
+}
+
+@media (max-width: 1100px) {
+  .mount {
+    min-height: auto;
+  }
+
+  .panel {
+    position: static;
+    width: auto;
+    height: auto;
+    max-height: none;
+  }
+
+  .list {
+    height: auto;
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .filters {
+    grid-template-columns: 1fr;
+  }
+}

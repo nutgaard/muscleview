@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { type ExerciseData, type ExerciseId, exercises } from "./exercises.js";
 import { ExerciseAtlas } from "./components/ExerciseAtlas.js";
-import { FinderPanelUnified } from "./components/FinderPanelUnified.js";
-import { HeroPanel } from "./components/HeroPanel.js";
-import "./design-system.css";
-import "./App.css";
+import { FinderPanel } from "./components/FinderPanel.js";
+import styles from "./App.module.css";
 
 function App() {
   const [filteredExercises, setFilteredExercises] = useState<ExerciseData[]>(exercises);
-  const [currentExerciseId, setcurrentExerciseId] = useState<ExerciseId>(exercises[0]!.id);
+  const [currentExerciseId, setCurrentExerciseId] = useState<ExerciseId>(exercises[0]!.id);
   const currentExercise =
     filteredExercises.find((it) => it.id === currentExerciseId) ?? filteredExercises[0] ?? null;
 
@@ -19,22 +17,20 @@ function App() {
       if (isIncluded) return;
       else {
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        setcurrentExerciseId(filteredExercises.at(0)!.id);
+        setCurrentExerciseId(filteredExercises.at(0)!.id);
       }
     }
   }, [currentExerciseId, filteredExercises]);
 
   return (
-    <main className="app-shell">
-      <HeroPanel />
-      <section className="workspace">
+    <main className={styles.shell}>
+      <section className={styles.workspace}>
         <ExerciseAtlas exercise={currentExercise} />
 
-        <FinderPanelUnified
-          filteredExercises={filteredExercises}
+        <FinderPanel
           setFilteredExercises={setFilteredExercises}
           currentExerciseId={currentExerciseId}
-          setCurrentExerciseId={setcurrentExerciseId}
+          setCurrentExerciseId={setCurrentExerciseId}
         />
       </section>
     </main>

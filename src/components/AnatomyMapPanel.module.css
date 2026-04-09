@@ -1,0 +1,56 @@
+.panel {
+  margin: 0;
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+.caption {
+  margin: 0;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+}
+
+.map {
+  display: grid;
+  place-items: center;
+  min-height: 34rem;
+}
+
+.svg {
+  width: min(100%, 19rem);
+  height: auto;
+  display: block;
+}
+
+.svg :global(rect:first-of-type) {
+  fill: transparent;
+}
+
+.svg :global(g[class] path) {
+  fill: #d7cec1;
+  transition: fill 180ms ease;
+}
+
+.svg :global(.silhouette) {
+  fill: none;
+  stroke: #8f8171;
+}
+
+.svg :global(g.is-low path) {
+  fill: #cf9b58;
+}
+
+.svg :global(g.is-high path) {
+  fill: #b54830;
+}
+
+@media (max-width: 720px) {
+  .map {
+    min-height: 24rem;
+  }
+}

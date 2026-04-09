@@ -1,0 +1,22 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.52rem 0.74rem;
+  border-radius: 999px;
+  font-size: 0.84rem;
+}
+
+.default {
+  background: rgba(66, 38, 17, 0.06);
+  color: var(--ink);
+  text-transform: capitalize;
+}
+
+.equipment {
+  background: rgba(43, 78, 69, 0.12);
+  color: #27463f;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
