@@ -1,24 +1,30 @@
 .field {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.38rem;
 }
 
 .label {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--muted-strong);
 }
 
 .input {
+  --input-radius: 0.95rem;
   width: 100%;
-  padding: 0.95rem 1rem;
+  min-height: 2.6rem;
+  padding: 0.56rem 0.9rem;
   border: 1px solid rgba(95, 77, 58, 0.16);
-  border-radius: 999px;
+  border-radius: var(--input-radius);
+  corner-shape: superellipse(2.4);
   background: rgba(255, 252, 246, 0.92);
   color: var(--ink);
   font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .input:focus-visible {

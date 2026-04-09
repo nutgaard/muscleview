@@ -1,8 +1,10 @@
 .surface {
+  --surface-radius: 1.5rem;
   position: relative;
   overflow: clip;
   border: 1px solid var(--line);
-  border-radius: 1.5rem;
+  border-radius: var(--surface-radius);
+  corner-shape: superellipse(2.6);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 239, 224, 0.88)), var(--panel);
   box-shadow: var(--shadow);
@@ -39,6 +41,6 @@
 
 @media (max-width: 720px) {
   .surface {
-    border-radius: 1.1rem;
+    --surface-radius: 1.1rem;
   }
 }
