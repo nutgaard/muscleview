@@ -85,4 +85,12 @@ For GitHub Actions, consider using [`voidzero-dev/setup-vp`](https://github.com/
 
 - [ ] Run `vp install` after pulling remote changes and before getting started.
 - [ ] Run `vp check` and `vp test` to validate changes.
+
+## Project Browser Policy
+
+- This app targets current evergreen browsers only.
+- Supported target: latest stable Chrome, Edge, Firefox, Safari, and latest major iOS Safari.
+- Older browsers are out of scope. Do not add polyfills or fallbacks for legacy browser support unless the user explicitly asks.
+- Prefer current platform features when they simplify the code, including modern CSS and current JavaScript built-ins supported by the target browsers.
+- `package.json` is the source of truth for the repo browser baseline.
 <!--VITE PLUS END-->

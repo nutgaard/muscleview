@@ -1,11 +1,9 @@
 .control {
+  position: relative;
   display: grid;
   align-content: start;
   gap: 0.55rem;
-}
-
-.anchor {
-  position: relative;
+  anchor-scope: --field-trigger;
 }
 
 .field {
@@ -37,6 +35,7 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
+  anchor-name: --field-trigger;
   transition:
     transform 160ms ease,
     border-color 160ms ease,
@@ -71,13 +70,13 @@
   border-color: rgba(142, 43, 28, 0.28);
 }
 
-.triggerOpen {
+.trigger[aria-expanded="true"] {
   border-color: rgba(142, 43, 28, 0.42);
   box-shadow: 0 14px 28px rgba(68, 35, 18, 0.08);
 }
 
-.triggerOpen::before,
-.triggerOpen::after {
+.trigger[aria-expanded="true"]::before,
+.trigger[aria-expanded="true"]::after {
   transform: rotate(225deg);
 }
 
@@ -134,8 +133,10 @@
 
 .menu {
   position: absolute;
-  top: calc(100% + 0.45rem);
-  inset-inline: 0;
+  position-anchor: --field-trigger;
+  inset-block-start: calc(anchor(bottom) + 0.45rem);
+  inset-inline-start: anchor(left);
+  inline-size: anchor-size(width);
   z-index: 20;
   border: 1px solid rgba(95, 77, 58, 0.16);
   border-radius: 1.05rem;

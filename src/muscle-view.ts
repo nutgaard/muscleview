@@ -44,7 +44,7 @@ export function buildMuscleOptions(sourceExercises: readonly ExerciseData[]): Mu
   );
 
   return (Object.entries(counts) as [Muscle, number][])
-    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+    .toSorted((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .map(([muscle, count]) => ({
       value: muscle,
       label: formatLabel(muscle),
@@ -65,7 +65,7 @@ export function buildWeightTypeOptions(
   );
 
   return (Object.entries(counts) as [WeightType, number][])
-    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+    .toSorted((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .map(([weightType, count]) => ({
       value: weightType,
       label: formatLabel(weightType.toLowerCase()),

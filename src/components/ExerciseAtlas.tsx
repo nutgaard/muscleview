@@ -13,9 +13,6 @@ interface ExerciseAtlasProps {
 }
 
 export function ExerciseAtlas({ exercise }: ExerciseAtlasProps) {
-  const primaryMuscles = exercise?.muscleGroups.filter(({ stress }) => stress === "HIGH") ?? [];
-  const secondaryMuscles = exercise?.muscleGroups.filter(({ stress }) => stress === "LOW") ?? [];
-
   if (exercise == null) {
     return (
       <PanelCard className={styles.panel}>
@@ -30,6 +27,9 @@ export function ExerciseAtlas({ exercise }: ExerciseAtlasProps) {
       </PanelCard>
     );
   }
+  const muscleGroups = Object.groupBy(exercise.muscleGroups, (it) => it.stress);
+  const primaryMuscles = muscleGroups.HIGH ?? [];
+  const secondaryMuscles = muscleGroups.LOW ?? [];
 
   return (
     <PanelCard className={styles.panel}>
