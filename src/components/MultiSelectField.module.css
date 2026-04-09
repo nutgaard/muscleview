@@ -1,8 +1,11 @@
 .control {
-  position: relative;
   display: grid;
   align-content: start;
   gap: 0.55rem;
+}
+
+.anchor {
+  position: relative;
 }
 
 .field {

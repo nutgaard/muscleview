@@ -50,16 +50,7 @@ export function FinderPanel({
       return matchesQuery && matchesMuscles && matchesWeightTypes;
     });
   }, [exerciseQuery, selectedMuscles, selectedWeightTypes]);
-  const activeFilterCount =
-    Number(exerciseQuery.trim().length > 0) +
-    Number(selectedMuscles.length > 0) +
-    Number(selectedWeightTypes.length > 0);
-  const resultSummary =
-    activeFilterCount === 0
-      ? `${visibleExercises.length} exercises`
-      : `${visibleExercises.length} exercises, ${activeFilterCount} active filter group${
-          activeFilterCount === 1 ? "" : "s"
-        }`;
+  const resultSummary = `${visibleExercises.length} exercises`;
 
   useEffect(() => {
     setFilteredExercises(visibleExercises);

@@ -58,25 +58,78 @@ export function MultiSelectField<T extends string>({
 
   return (
     <div ref={panelRef} className={styles.control}>
-      <label className={styles.field}>
-        <span className={styles.label}>{label}</span>
-        <button
-          id={fieldId}
-          type="button"
-          className={triggerClassName}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-          aria-controls={`${fieldId}-menu`}
-          onClick={() => {
-            setOpen((current) => !current);
-          }}
-        >
-          <span className={styles.triggerCopy}>
-            {selectedValues.length === 0 ? "All" : `${selectedValues.length} selected`}
-          </span>
-          <span className={styles.triggerMeta}>{label}</span>
-        </button>
-      </label>
+      <div className={styles.anchor}>
+        <label className={styles.field}>
+          <span className={styles.label}>{label}</span>
+          <button
+            id={fieldId}
+            type="button"
+            className={triggerClassName}
+            aria-haspopup="listbox"
+            aria-expanded={open}
+            aria-controls={`${fieldId}-menu`}
+            onClick={() => {
+              setOpen((current) => !current);
+            }}
+          >
+            <span className={styles.triggerCopy}>
+              {selectedValues.length === 0 ? "All" : `${selectedValues.length} selected`}
+            </span>
+            <span className={styles.triggerMeta}>{label}</span>
+          </button>
+        </label>
+
+        {open ? (
+          <div
+            id={`${fieldId}-menu`}
+            className={styles.menu}
+            role="listbox"
+            aria-labelledby={fieldId}
+            aria-multiselectable="true"
+          >
+            <div className={styles.menuScroll}>
+              {options.map((option) => {
+                const selected = selectedValues.includes(option.value);
+                const optionClassName = selected
+                  ? `${styles.option} ${styles.optionSelected}`
+                  : styles.option;
+
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    role="option"
+                    aria-selected={selected}
+                    className={optionClassName}
+                    onClick={() => {
+                      onToggleValue(option.value);
+                    }}
+                  >
+                    <span className={styles.optionCheck} aria-hidden="true">
+                      {selected ? "●" : "○"}
+                    </span>
+                    <span className={styles.optionLabel}>{option.label}</span>
+                    <span className={styles.optionCount}>{option.count}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className={styles.footer}>
+              <button
+                type="button"
+                className={styles.clearButton}
+                disabled={selectedValues.length === 0}
+                onClick={() => {
+                  onClear();
+                }}
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </div>
 
       {selectedOptions.length > 0 ? (
         <div className={styles.selectedPills} aria-label={`${label} selected values`}>
@@ -100,57 +153,6 @@ export function MultiSelectField<T extends string>({
               </button>
             );
           })}
-        </div>
-      ) : null}
-
-      {open ? (
-        <div
-          id={`${fieldId}-menu`}
-          className={styles.menu}
-          role="listbox"
-          aria-labelledby={fieldId}
-          aria-multiselectable="true"
-        >
-          <div className={styles.menuScroll}>
-            {options.map((option) => {
-              const selected = selectedValues.includes(option.value);
-              const optionClassName = selected
-                ? `${styles.option} ${styles.optionSelected}`
-                : styles.option;
-
-              return (
-                <button
-                  key={option.value}
-                  type="button"
-                  role="option"
-                  aria-selected={selected}
-                  className={optionClassName}
-                  onClick={() => {
-                    onToggleValue(option.value);
-                  }}
-                >
-                  <span className={styles.optionCheck} aria-hidden="true">
-                    {selected ? "●" : "○"}
-                  </span>
-                  <span className={styles.optionLabel}>{option.label}</span>
-                  <span className={styles.optionCount}>{option.count}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className={styles.footer}>
-            <button
-              type="button"
-              className={styles.clearButton}
-              disabled={selectedValues.length === 0}
-              onClick={() => {
-                onClear();
-              }}
-            >
-              Clear
-            </button>
-          </div>
         </div>
       ) : null}
     </div>
